@@ -1,0 +1,16 @@
+Package: UrbanTempo
+Title: Manage urban temporalities from observational data
+Version: 0.1.0
+Authors@R: c(
+    person("Timothée", "Flutre", email = "timflutre@gmail.com", role = c("aut", "cre")),
+    person("Marie", "Flutre", email = "marie.gibert@univ-paris-diderot.fr", role = c("aut"))
+    )
+Description: Manage urban temporalities from observational data, similarly to figure 4.6 in Marie Gibert's PhD thesis (2014).
+Depends: R (>= 3.2.0)
+License: AGPL-3
+Copyright: Université Paris Diderot
+URL: https://github.com/marieflutre/UrbanTempo
+BugReports: https://github.com/marieflutre/UrbanTempo/issues
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
