@@ -17,6 +17,7 @@ The content of this package is versioned using the [git](http://www.git-scm.com/
 You, the user, first need to install on your computer the R software (details [here](https://cloud.r-project.org/)), available under a free software license, for Windows, Mac and Linux operating systems.
 
 Once this is done, it is recommended to also install the RStudio software (the Desktop version; details [here](https://www.rstudio.com/products/rstudio/#Desktop)), also available under a free software license, for Windows, Mac and Linux operating systems.
+For Mac users, if asked, there is no need to install "git" or "XCode" tools.
 
 Once this is done, launch RStudio, which will also automatically launch an interactive R session.
 At this stage, you still need to install the devtools package, along with its dependencies.
