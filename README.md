@@ -23,13 +23,13 @@ Once this is done, launch RStudio, which will also automatically launch an inter
 At this stage, you still need to install the devtools package, along with its dependencies.
 This is easily done via the following command, to be copy-pasted and executed in the R console of RStudio:
 ```
-R> install.packages("devtools")
+install.packages("devtools")
 ```
 
 Once this is done, you need to load the devtools package into the session, and install the UrbanTempo package from GitHub, via the following commands, to be copy-pasted and executed in the R console:
 ```
-R> library(devtools)
-R> install_github("marieflutre/UrbanTempo", build_vignettes=TRUE)
+library(devtools)
+install_github("marieflutre/UrbanTempo", build_vignettes=TRUE)
 ```
 
 Once this is done, the UrbanTempo package should be available on your computer.
@@ -39,24 +39,24 @@ Once this is done, the UrbanTempo package should be available on your computer.
 
 Once the Urban Tempo package is available on your computer, it can be loaded into a R session:
 ```
-R> library(UrbanTempo)
+library(UrbanTempo)
 ```
 
 You are encouraged to first read the introductory tutorial in details:
 ```
-R> browseVignettes("UrbanTempo")
+browseVignettes("UrbanTempo")
 ```
 
 This should automatically display the R vignette coming with the package into your default web browser, such as Firefox, Safari or Internet Explorer.
 
 Some information about the package is also available directly via the R console:
 ```
-R> help(package="UrbanTempo")
+help(package="UrbanTempo")
 ```
 
 For any given function, its documentation is available by adding the question mark symbol, `?`, in front of it, for instance:
 ```
-R> ?readTemporalities
+?readTemporalities
 ```
 
 If you are new to R, it is advised to read the official [documentation](https://cran.r-project.org/manuals.html).
@@ -77,7 +77,7 @@ Other useful sources of information are listed below:
 
 The authors invested time and effort in creating the UrbanTempo package, please cite it when using it:
 ```
-R> citation("UrbanTempo")
+citation("UrbanTempo")
 ```
 
 See also `citation()` for citing the R software itself.
