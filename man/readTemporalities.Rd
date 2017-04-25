@@ -4,18 +4,28 @@
 \alias{readTemporalities}
 \title{Input of urban temporalities}
 \usage{
-readTemporalities(file)
+readTemporalities(file, duration.event = 60, verbose = 1)
 }
 \arguments{
 \item{file}{the name of the file which the data are to be read from.
-The first line (header) should contain column names.
-Columns should be separated by a tabulation.}
+Space types are in columns and each row corresponds to a specific time (a file corresponds to a single day).
+The first line (header) should contain column names, and columns should be separated by a tabulation:
+\itemize{
+\item first column: should be named \code{"date"} and formatted as year-month-day, for instance \code{"2017-04-23"};
+\item second column: should be named \code{"time"} and formatted as hour:minute, for instance \code{"17:02"};
+\item third column: corresponds to the first space type;
+\item and so on.
+}}
+
+\item{duration.event}{duration of a ponctual event, in seconds}
+
+\item{verbose}{verbosity level (0/1/2)}
 }
 \value{
-data frame
+list of data frame(s)
 }
 \description{
-Reads a file containing urban temporalities in table format and creates a data frame from it.
+Reads a file containing urban temporalities in table format and returns a list of data frame(s) from it.
 }
 \author{
 Timothee Flutre

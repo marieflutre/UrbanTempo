@@ -1,0 +1,15 @@
+citHeader("To cite UrbanTempo in publications, use:")
+
+citEntry(entry = "Manual",
+  title        = paste("UrbanTempo:", packageDescription("UrbanTempo")$Title),
+  author       = personList(as.person("Timothée Flutre"), as.person("Marie Flutre")),
+  year         = "2017",
+  note         = paste("R package version", packageVersion("UrbanTempo")),
+  url          = packageDescription("UrbanTempo")$URL,
+
+  textVersion  =
+    paste("Timothée Flutre and Marie Flutre (2017).",
+          "UrbanTempo:", packageDescription("UrbanTempo")$Title, ".",
+          "R package version", packageVersion("UrbanTempo"), ".",
+          packageDescription("UrbanTempo")$URL)
+)

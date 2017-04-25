@@ -1,0 +1,125 @@
+---
+title: "Introduction to the UrbanTempo package"
+author: "Timothée Flutre and Marie Flutre"
+date: "`r format(Sys.time(), '%d/%m/%Y %H:%M:%S')`"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    number_sections: TRUE
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: TRUE
+vignette: >
+  %\VignetteIndexEntry{Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<!--
+setwd("~/src/UrbanTempo/vignettes/")
+
+library(devtools)
+build_vignettes()
+
+library(rmarkdown)
+render("introduction.Rmd", "html_document")
+-->
+
+
+# Preamble
+
+This vignette is available under the [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/) license.
+
+To run it, the external package [UrbanTempo](https://github.com/marieflutre/UrbanTempo) is required:
+```{r load_pkg}
+library(UrbanTempo)
+```
+
+The R chunk below is used to assess how much time it takes to execute the R code in this document (see the appendix at the end):
+```{r time_0}
+t0 <- proc.time()
+```
+
+
+# Context
+
+TODO
+
+
+# Show an example with fake data
+
+## Create data
+
+Let's create a minimal data set of two space types, with a total of one interval and two ponctual events over two hours, and save it into a file:
+```{r fake_data_create}
+tmpd <- tempdir() # temporary directory
+input.df <- data.frame("date"=c("2017-04-23", "2017-04-23", "2017-04-23"),
+                       "time"=c("07:24", "07:13", "08:17"),
+                       "shops"=c("shop end", "shop start", NA),
+                       "street"=c("hawker", NA, "hawker"),
+                       stringsAsFactors=FALSE)
+tmpf <- paste0(tmpd, "/input_temporalities.tsv") # temporary file
+write.table(x=input.df, file=tmpf, quote=FALSE, sep="\t",
+            row.names=FALSE, col.names=TRUE)
+```
+
+## Load data
+
+Such a file can be loaded with the following function, whose output is here assigned to a variable named `tpr`:
+```{r fake_data_load}
+tpr <- readTemporalities(file=tmpf, duration.event=60, verbose=1)
+```
+
+More details are available in the help of this function, via `?readTemporalities`.
+
+
+## Plot data
+
+First, we need to specify the appearance of each type of temporalities, such as their colors which can be chosen via a palette:
+
+* http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf
+
+* https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/colorPaletteCheatsheet.pdf
+
+```{r fake_data_app}
+app <- list("shops"=data.frame(col="chocolate", row.names="shop"),
+            "street"=data.frame(col="blueviolet", row.names="hawker"))
+```
+
+Then, the input temporalities contained in the `tpr` variable can be plotted with the following function:
+```{r fake_data_plot, fig.width=8}
+plotTemporalities(temporalities=tpr, appearances=app,
+                  main="Fake example of urban temporalities",
+                  data.source="fake example, 2017", verbose=1)
+```
+
+More details are available in the help of this function, via `?plotTemporalities`.
+
+
+## Clean
+
+Remove the temporary file:
+```{r fake_data_clean}
+if(file.exists(tmpf))
+  file.remove(tmpf)
+```
+
+
+# Reproduce the figure from Gibert's PhD thesis (2014)
+
+TODO
+
+
+# Appendix
+
+Below are some details about this vignette:
+```{r info}
+t1 <- proc.time()
+t1 - t0
+print(sessionInfo(), locale=FALSE)
+```
