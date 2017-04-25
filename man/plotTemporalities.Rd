@@ -6,7 +6,7 @@
 \usage{
 plotTemporalities(temporalities, appearances, main = "Urban temporalities",
   data.source = "author, date", vertical.bars.per.hour = FALSE,
-  show.legend = FALSE, verbose = 1)
+  verbose = 1)
 }
 \arguments{
 \item{temporalities}{list of data frame(s) containing urban temporalities, as returned by \code{\link[=readTemporalities]{readTemporalities()}}}
@@ -18,8 +18,6 @@ plotTemporalities(temporalities, appearances, main = "Urban temporalities",
 \item{data.source}{source of the data, for instance \code{"M. Gibert, 2013"} (skipped if NULL)}
 
 \item{vertical.bars.per.hour}{if TRUE, a vertical bar is added for each hour}
-
-\item{show.legend}{if TRUE, the legend is shown}
 
 \item{verbose}{verbosity level (0/1)}
 }

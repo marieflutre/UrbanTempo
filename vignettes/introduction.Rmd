@@ -115,6 +115,8 @@ plotTemporalities(temporalities=tpr, appearances=app)
 dev.off()
 ```
 
+Such a file can be edited with the [Inkscape](https://inkscape.org) free software to add the legend.
+
 
 ## Clean
 

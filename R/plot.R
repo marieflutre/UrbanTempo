@@ -6,7 +6,6 @@
 ##' @param main main title
 ##' @param data.source source of the data, for instance `"M. Gibert, 2013"` (skipped if NULL)
 ##' @param vertical.bars.per.hour if TRUE, a vertical bar is added for each hour
-##' @param show.legend if TRUE, the legend is shown
 ##' @param verbose verbosity level (0/1)
 ##' @author Timothee Flutre
 ##' @export
@@ -14,7 +13,7 @@ plotTemporalities <- function(temporalities, appearances,
                               main="Urban temporalities",
                               data.source="author, date",
                               vertical.bars.per.hour=FALSE,
-                              show.legend=FALSE, verbose=1){
+                              verbose=1){
   stopifnot(is.list(temporalities),
             all(sapply(temporalities, is.data.frame)),
             is.list(appearances),
@@ -25,6 +24,8 @@ plotTemporalities <- function(temporalities, appearances,
             is.logical(vertical.bars.per.hour))
   if(! is.null(data.source))
     stopifnot(is.character(data.source))
+
+  show.legend <- FALSE # hard to code, better to edit PDF in Inkscape
 
   if(verbose > 0){
     msg <- "draw plot structure..."
@@ -113,7 +114,7 @@ plotTemporalities <- function(temporalities, appearances,
                     line=mar.leg - 2, at=xlim[2], adj=1, padj=1)
   }
 
-  if(show.legend){
+  if(show.legend){ # hard to code, better to edit PDF in Inkscape
     if(verbose > 0){
       msg <- "add legend..."
       message(msg)
