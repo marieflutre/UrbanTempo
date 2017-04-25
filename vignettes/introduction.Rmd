@@ -77,6 +77,11 @@ tpr <- readTemporalities(file=tmpf, duration.event=60, verbose=1)
 
 More details are available in the help of this function, via `?readTemporalities`.
 
+The set of unique temporality types per space type can be obtained via the following command:
+```{r fake_data_uniq_tpr_types_per_space_type}
+lapply(tpr, function(x){unique(x$id)})
+```
+
 
 ## Plot data
 
@@ -95,10 +100,20 @@ Then, the input temporalities contained in the `tpr` variable can be plotted wit
 ```{r fake_data_plot, fig.width=8}
 plotTemporalities(temporalities=tpr, appearances=app,
                   main="Fake example of urban temporalities",
-                  data.source="fake example, 2017", verbose=1)
+                  data.source="fake example, 2017",
+                  vertical.bars.per.hour=TRUE,
+                  verbose=1)
 ```
 
 More details are available in the help of this function, via `?plotTemporalities`.
+
+If we want to save such a plot in, say, the [PDF](https://en.wikipedia.org/wiki/Portable_Document_Format) format, we can do it with the following commands:
+```{r fake_data_plot_pdf, eval=FALSE}
+pdf(file="plot_temporalities.pdf", width=7, height=4,
+    title="Urban temporalities")
+plotTemporalities(temporalities=tpr, appearances=app)
+dev.off()
+```
 
 
 ## Clean

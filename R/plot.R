@@ -4,21 +4,25 @@
 ##' @param temporalities list of data frame(s) containing urban temporalities, as returned by [readTemporalities()]
 ##' @param appearances list of data.frame(s) specifying the appearances of each type of temporalities
 ##' @param main main title
+##' @param data.source source of the data, for instance `"M. Gibert, 2013"` (skipped if NULL)
+##' @param vertical.bars.per.hour if TRUE, a vertical bar is added for each hour
 ##' @param show.legend if TRUE, the legend is shown
-##' @param data.source source of the data, for instance `"M. Gibert, 2013"`
 ##' @param verbose verbosity level (0/1)
 ##' @author Timothee Flutre
 ##' @export
 plotTemporalities <- function(temporalities, appearances,
                               main="Urban temporalities",
-                              show.legend=FALSE, data.source=NULL, verbose=1){
+                              data.source="author, date",
+                              vertical.bars.per.hour=FALSE,
+                              show.legend=FALSE, verbose=1){
   stopifnot(is.list(temporalities),
             all(sapply(temporalities, is.data.frame)),
             is.list(appearances),
             all(sapply(appearances, is.data.frame)),
             all(names(temporalities) %in% names(appearances)),
             all(do.call(c, lapply(temporalities, function(x){x$id})) %in%
-                do.call(c, lapply(appearances, rownames))))
+                do.call(c, lapply(appearances, rownames))),
+            is.logical(vertical.bars.per.hour))
   if(! is.null(data.source))
     stopifnot(is.character(data.source))
 
@@ -35,7 +39,15 @@ plotTemporalities <- function(temporalities, appearances,
   uniq.hours <- unique(do.call(c, lapply(temporalities, function(x){
     c(x$start$hour, x$end$hour)
   })))
-  xlim <- c(min(uniq.hours), max(uniq.hours) + 1)
+  xlim <- c(min(uniq.hours), max(uniq.hours))
+  max.time <- max(do.call(c, lapply(temporalities, function(x){
+    x$end
+  })))
+  max.hour <- max.time
+  max.hour$min <- 0
+  max.hour$sec <- 0
+  if(max.time > max.hour)
+    xlim[2] <- xlim[2] + 1
   ylim <- c(0, length(temporalities))
   graphics::plot(x=0, y=0, xlim=xlim, ylim=ylim,
                  type="n", xaxt="n", yaxt="n",
@@ -47,10 +59,17 @@ plotTemporalities <- function(temporalities, appearances,
   x0 <- y0 <- x1 <- y1 <- c()
   x.seq <- xlim[1]:xlim[2]
   y.seq <- ylim[1]:ylim[2]
-  x0 <- c(x0, x.seq)
-  x1 <- c(x1, x.seq)
-  y0 <- c(y0, rep(ylim[1], length(x.seq)))
-  y1 <- c(y1, rep(ylim[2], length(x.seq)))
+  if(vertical.bars.per.hour){
+    x0 <- c(x0, x.seq)
+    x1 <- c(x1, x.seq)
+    y0 <- c(y0, rep(ylim[1], length(x.seq)))
+    y1 <- c(y1, rep(ylim[2], length(x.seq)))
+  } else{
+    x0 <- c(x0, xlim)
+    x1 <- c(x1, xlim)
+    y0 <- c(y0, rep(ylim[1], 2))
+    y1 <- c(y1, rep(ylim[2], 2))
+  }
   x0 <- c(x0, rep(xlim[1], length(y.seq)))
   x1 <- c(x1, rep(xlim[2], length(y.seq)))
   y0 <- c(y0, y.seq)

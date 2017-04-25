@@ -120,6 +120,8 @@ readTemporalities <- function(file, duration.event=60, verbose=1){
                   ifelse(length(out) > 1, "s", ""))
     for(i in 1:length(out))
       msg <- paste0(msg, "\n (", i, ") ", names(out)[i], ": ",
+                    length(unique(out[[i]]$id)), " temporality type",
+                    ifelse(length(unique(out[[i]]$id)) > 1, "s", ""), ", ",
                     nrow(out[[i]]), " time point",
                     ifelse(nrow(out[[i]]) > 1, "s", ""))
     message(msg)
