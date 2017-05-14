@@ -2,11 +2,10 @@
 ==============
 
 This directory contains the UrbanTempo package for the [R](https://www.r-project.org/) programming language and software environment for statistical computing.
-This package contains computer code to **plot urban temporalities from observational data**, similarly to figure 4.6 in Marie Gibert's [PhD thesis](https://www.academia.edu/7549254) (2014).
+This package contains computer code to **plot urban temporalities from observational data**, similarly to figure 4.6 in Marie Gibert's [PhD thesis](https://www.academia.edu/7549254) (2014) as well as a figure in her forthcoming book chapter (Southeast Asia urbanization, Routledge handbook).
 As such, this package can be **of interest to urban geographers and anthropologists**.
 
-The development of this package is funded by the [Université Paris-Diderot](https://www.univ-paris-diderot.fr/), the copyright hence is owned by this university.
-However, the code is available under a [free software](https://en.wikipedia.org/wiki/Free_software) license, the [GNU Affero General Public License](https://www.gnu.org/licenses/agpl.html) (version 3 and later).
+This software is available under a [free software](https://en.wikipedia.org/wiki/Free_software) license, the [GNU Affero General Public License](https://www.gnu.org/licenses/agpl.html) (version 3 and later).
 See the COPYING file for details.
 
 The content of this package is versioned using the [git](http://www.git-scm.com/) software, the central repository being hosted on the [GitHub](https://github.com/marieflutre/UrbanTempo) website.
@@ -14,9 +13,11 @@ The content of this package is versioned using the [git](http://www.git-scm.com/
 
 # Installation
 
-You, the user, first need to install on your computer the R software (details [here](https://cloud.r-project.org/)), available under a free software license, for Windows, Mac and Linux operating systems.
+You, the user, first need to install on your computer the R software (details [here](https://cloud.r-project.org/)).
+This software is available under a free software license, hence is best used on a computer with a free operating system such as GNU/Linux, but it can also be used on Windows and Mac operating systems.
 
-Once this is done, it is recommended to also install the RStudio software (the Desktop version; details [here](https://www.rstudio.com/products/rstudio/#Desktop)), also available under a free software license, for Windows, Mac and Linux operating systems.
+Once this is done, it is recommended to also install the RStudio software (the Desktop version; details [here](https://www.rstudio.com/products/rstudio/#Desktop)).
+This software is also available under a free software license, hence is best used on a computer with a free operating system such as GNU/Linux, but it can also be used on Windows and Mac operating systems.
 For Mac users, if asked, there is no need to install "git" or "XCode" tools.
 
 Once this is done, launch RStudio, which will also automatically launch an interactive R session.
@@ -26,7 +27,7 @@ This is easily done via the following command, to be copy-pasted and executed in
 install.packages("devtools")
 ```
 
-Once this is done, you need to load the devtools package into the session, and install the UrbanTempo package from GitHub, via the following commands, to be copy-pasted and executed in the R console:
+Once this is done, you need to load the devtools package into the session, and install the UrbanTempo package, via the following commands, to be copy-pasted and executed in the R console:
 ```
 library(devtools)
 install_github("marieflutre/UrbanTempo", build_vignettes=TRUE)
@@ -47,7 +48,7 @@ You are encouraged to first read the introductory tutorial in details:
 browseVignettes("UrbanTempo")
 ```
 
-This should automatically display the R vignette coming with the package into your default web browser, such as Firefox, Safari or Internet Explorer.
+This should automatically display the R vignette coming with the package into your default web browser, such as [Firefox](https://en.wikipedia.org/wiki/Firefox) (free software).
 
 Some information about the package is also available directly via the R console:
 ```
@@ -59,7 +60,7 @@ For any given function, its documentation is available by adding the question ma
 ?readTemporalities
 ```
 
-If you are new to R, it is advised to read the official [documentation](https://cran.r-project.org/manuals.html).
+If you are new to R, it is advised to read its official [documentation](https://cran.r-project.org/manuals.html).
 Other useful sources of information are listed below:
 
 * http://www.statmethods.net

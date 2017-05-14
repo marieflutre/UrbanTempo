@@ -3,8 +3,6 @@ title: "Introduction to the UrbanTempo package"
 author: "Timothée Flutre and Marie Flutre"
 date: "`r format(Sys.time(), '%d/%m/%Y %H:%M:%S')`"
 output:
-  rmarkdown::html_vignette:
-    toc: true
   html_document:
     toc: true
     toc_depth: 3
@@ -33,9 +31,9 @@ render("introduction.Rmd", "html_document")
 
 # Preamble
 
-This vignette is available under the [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/) license.
+This document is an [R](https://www.r-project.org/) vignette available under the [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/) license.
 
-To run it, the external package [UrbanTempo](https://github.com/marieflutre/UrbanTempo) is required:
+It is part of the R package [UrbanTempo](https://github.com/marieflutre/UrbanTempo):
 ```{r load_pkg}
 library(UrbanTempo)
 ```
@@ -115,7 +113,7 @@ plotTemporalities(temporalities=tpr, appearances=app)
 dev.off()
 ```
 
-Such a file can be edited with the [Inkscape](https://inkscape.org) free software to add the legend.
+To add the legend, such a file can be edited with [Inkscape](https://inkscape.org) (free software).
 
 
 ## Clean
