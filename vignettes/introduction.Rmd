@@ -33,10 +33,12 @@ render("introduction.Rmd", "html_document")
 
 This document is an [R](https://www.r-project.org/) vignette available under the [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/) license.
 
-It is part of the R package [UrbanTempo](https://github.com/marieflutre/UrbanTempo):
+It is part of the R package [UrbanTempo](https://github.com/marieflutre/UrbanTempo) (free software):
 ```{r load_pkg}
 library(UrbanTempo)
 ```
+
+For more details about free software, you can refer to the [information](https://www.gnu.org/philosophy/philosophy.en.html) provided by the [Free Software Foundation](https://en.wikipedia.org/wiki/Free_Software_Foundation).
 
 The R chunk below is used to assess how much time it takes to execute the R code in this document (see the appendix at the end):
 ```{r time_0}

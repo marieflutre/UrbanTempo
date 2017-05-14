@@ -7,6 +7,7 @@ As such, this package can be **of interest to urban geographers and anthropologi
 
 This software is available under a [free software](https://en.wikipedia.org/wiki/Free_software) license, the [GNU Affero General Public License](https://www.gnu.org/licenses/agpl.html) (version 3 and later).
 See the COPYING file for details.
+For more details about free software, you can refer to the [information](https://www.gnu.org/philosophy/philosophy.en.html) provided by the [Free Software Foundation](https://en.wikipedia.org/wiki/Free_Software_Foundation).
 
 The content of this package is versioned using the [git](http://www.git-scm.com/) software, the central repository being hosted on the [GitHub](https://github.com/marieflutre/UrbanTempo) website.
 
@@ -63,11 +64,11 @@ For any given function, its documentation is available by adding the question ma
 If you are new to R, it is advised to read its official [documentation](https://cran.r-project.org/manuals.html).
 Other useful sources of information are listed below:
 
-* http://www.statmethods.net
-
 * https://cran.r-project.org/faqs.html
 
 * https://cran.r-project.org/doc/contrib/Baggott-refcard-v2.pdf
+
+* http://www.statmethods.net
 
 * http://grunwaldlab.github.io/Reproducible-science-in-R
 
