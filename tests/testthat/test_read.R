@@ -124,3 +124,36 @@ test_that("readTemporalities_error_start_without_end", {
   if(file.exists(tmpf))
     file.remove(tmpf)
 })
+
+test_that("readTemporalities_mult-occurr-tempo-types-in-same-space-type", {
+  tmpd <- tempdir()
+
+  temporalities <- data.frame(date=c("2017-04-23"),
+                              time=c("07:13", "07:20",
+                                     "07:33", "07:50"),
+                              space1=c("shop start", "shop end",
+                                       "shop start", "shop end"),
+                              stringsAsFactors=FALSE)
+  tmpf <- paste0(tmpd, "/input_temporalities.tsv")
+  write.table(x=temporalities, file=tmpf, quote=FALSE, sep="\t",
+              row.names=FALSE, col.names=TRUE)
+
+  expected <- list(
+      space1=data.frame(id=rep("shop", 2),
+                        start=c(strptime("2017-04-23 07:13",
+                                         "%Y-%m-%d %H:%M"),
+                                strptime("2017-04-23 07:33",
+                                         "%Y-%m-%d %H:%M")),
+                        end=c(strptime("2017-04-23 07:20",
+                                       "%Y-%m-%d %H:%M"),
+                              strptime("2017-04-23 07:50",
+                                       "%Y-%m-%d %H:%M")),
+                        stringsAsFactors=FALSE))
+
+  observed <- readTemporalities(file=tmpf, verbose=0)
+
+  expect_equal(observed, expected)
+
+  if(file.exists(tmpf))
+    file.remove(tmpf)
+})

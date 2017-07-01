@@ -107,6 +107,8 @@ readTemporalities <- function(file, duration.event=60, verbose=1){
               stop(msg)
             }
             idx <- which(df$id == event[1])
+            if(length(idx) > 1)
+              idx <- idx[length(idx)]
             df[idx,]$end <- input$datetime[i]
           }
         } else if(length(event) == 1){ # ponctual event
