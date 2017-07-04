@@ -28,7 +28,7 @@
 ##' * and so on.
 ##' @param duration.event duration of a ponctual event, in seconds
 ##' @param verbose verbosity level (0/1/2)
-##' @return list of data frame(s)
+##' @return list of data frame(s), one per space type
 ##' @author Timothee Flutre
 ##' @export
 readTemporalities <- function(file, duration.event=60, verbose=1){

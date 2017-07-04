@@ -37,9 +37,14 @@ plotTemporalities <- function(temporalities, appearances,
             is.list(appearances),
             all(sapply(appearances, is.data.frame)),
             all(names(temporalities) %in% names(appearances)),
-            all(do.call(c, lapply(temporalities, function(x){x$id})) %in%
-                do.call(c, lapply(appearances, rownames))),
             is.logical(vertical.bars.per.hour))
+  id.tpr <- do.call(c, lapply(temporalities, function(x){x$id}))
+  id.app <- do.call(c, lapply(appearances, rownames))
+  if(! all(id.tpr %in% id.app)){
+    problem <- id.tpr[which(! id.tpr %in% id.app)][1]
+    msg <- paste0("event '", problem, "' not in 'appearances'")
+    stop(msg)
+  }
   if(! is.null(data.source))
     stopifnot(is.character(data.source))
 

@@ -22,7 +22,7 @@ The first line (header) should contain column names, and columns should be separ
 \item{verbose}{verbosity level (0/1/2)}
 }
 \value{
-list of data frame(s)
+list of data frame(s), one per space type
 }
 \description{
 Reads a file containing urban temporalities in table format and returns a list of data frame(s) from it.
