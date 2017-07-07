@@ -1,6 +1,6 @@
 Package: UrbanTempo
 Title: Manage urban temporalities from observational data
-Version: 0.2.2
+Version: 0.3.0
 Authors@R: c(
     person("Timothée", "Flutre", email = "timflutre@gmail.com", role = c("aut", "cre")),
     person("Marie", "Flutre", email = "marie.gibert@univ-paris-diderot.fr", role = c("aut"))

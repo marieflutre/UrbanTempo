@@ -1,0 +1,58 @@
+date	time	shops	houses	street
+2011-08-08	07:00	closed start	stalls start	
+2011-08-08	07:04			hawker
+2011-08-08	07:07			hawker
+2011-08-08	07:09			hawker
+2011-08-08	07:11			hawker
+2011-08-08	07:13			collector
+2011-08-08	07:28	closed end;preparing start		delivery
+2011-08-08	07:35			delivery
+2011-08-08	07:42			delivery
+2011-08-08	07:43	preparing end;opened start		
+2011-08-08	07:45			hawker
+2011-08-08	07:51			hawker
+2011-08-08	07:58			delivery
+2011-08-08	08:02			hawker
+2011-08-08	08:10			hawker
+2011-08-08	08:15		stalls end;cleaning start	
+2011-08-08	08:17			delivery
+2011-08-08	08:24			hawker
+2011-08-08	08:26		cleaning end	
+2011-08-08	08:29			collector
+2011-08-08	08:31			hawker
+2011-08-08	08:36		social start	hawker
+2011-08-08	08:43			hawker
+2011-08-08	08:45		social end	hawker
+2011-08-08	08:50			collector
+2011-08-08	08:52			hawker
+2011-08-08	08:54			collector
+2011-08-08	09:00		social start	collector start
+2011-08-08	09:05		social end	
+2011-08-08	09:07		cleaning start	collector end
+2011-08-08	09:14			hawker
+2011-08-08	09:17			delivery
+2011-08-08	09:18		cleaning end	
+2011-08-08	09:23		social start	
+2011-08-08	09:27			hawker
+2011-08-08	09:31		social end	
+2011-08-08	09:35			hawker
+2011-08-08	09:44			delivery
+2011-08-08	09:46		social start	
+2011-08-08	09:51		social end	
+2011-08-08	09:53			beggar
+2011-08-08	09:57		social start	
+2011-08-08	10:03			hawker
+2011-08-08	10:15		social end	
+2011-08-08	10:22			hawker
+2011-08-08	10:29			delivery
+2011-08-08	10:33			collector
+2011-08-08	10:40		social start	hawker
+2011-08-08	10:45			beggar
+2011-08-08	10:52		social end	
+2011-08-08	10:55			delivery
+2011-08-08	11:02		social start	
+2011-08-08	11:10			hawker
+2011-08-08	11:20		social end	
+2011-08-08	11:30			hawker
+2011-08-08	11:45			delivery
+2011-08-08	12:00	opened end		
