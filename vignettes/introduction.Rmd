@@ -2,6 +2,7 @@
 title: "Introduction to the UrbanTempo package"
 author: "Timothée Flutre and Marie Flutre"
 date: "`r format(Sys.time(), '%d/%m/%Y %H:%M:%S')`"
+colorlinks: true
 output:
   html_document:
     toc: true
