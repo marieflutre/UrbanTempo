@@ -85,6 +85,25 @@ citation("UrbanTempo")
 See also `citation()` for citing the R software itself.
 
 
+# Example of input file
+
+In the introductory tutorial (R vignette mentioned above), you will see how to reproduce part of figure 4.6 from Marie Gibert's PhD thesis and her forthcoming book chapter.
+The data used to reproduce this figure are provided with the package as an example.
+Once the package is installed on your computer, you can execute the following command in a R console:
+```
+system.file("extdata", "Gibert_2014_data-PhD-thesis.tsv",
+            package="UrbanTempo")
+```
+which will return the path to the file.
+
+But, more easily, you can also download the example file, by clicking [here](https://raw.githubusercontent.com/marieflutre/UrbanTempo/master/inst/extdata/Gibert_2014_data-PhD-thesis.tsv).
+Do "right-click", then "Save as...".
+
+The resulting file is in "plain text" format, with columns separated by a tabulation.
+Such a file can be opened with virtually all softwares on all computers.
+A typical usage would be to open it with the Calc software from the [LibreOffice](https://www.libreoffice.org/) suite (free software), or with the Excel software from the Microsoft Office suite.
+
+
 # Issues
 
 When encountering a problem with the package, you can report issues on GitHub directly ([here](https://github.com/marieflutre/UrbanTempo/issues)).
