@@ -11,7 +11,7 @@ plotTemporalities(temporalities, appearances, main = "Urban temporalities",
 \arguments{
 \item{temporalities}{list of data frame(s) containing urban temporalities, as returned by \code{\link[=readTemporalities]{readTemporalities()}}}
 
-\item{appearances}{list of data.frame(s) specifying the appearances of each type of temporalities}
+\item{appearances}{list of data frame(s) specifying the appearances of each type of temporalities; each data frame should have a column named "col" specifying the color used for each type of urban temporality}
 
 \item{main}{main title}
 

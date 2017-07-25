@@ -20,7 +20,7 @@
 ##'
 ##' Draws a plot of urban temporalities, similarly to figure 4.6 in Marie Gibert's [PhD thesis](https://www.academia.edu/7549254) (2014).
 ##' @param temporalities list of data frame(s) containing urban temporalities, as returned by [readTemporalities()]
-##' @param appearances list of data.frame(s) specifying the appearances of each type of temporalities
+##' @param appearances list of data frame(s) specifying the appearances of each type of temporalities; each data frame should have a column named "col" specifying the color used for each type of urban temporality
 ##' @param main main title
 ##' @param data.source source of the data, for instance `"M. Gibert, 2013"` (skipped if NULL)
 ##' @param vertical.bars.per.hour if TRUE, a vertical bar is added for each hour
@@ -43,6 +43,14 @@ plotTemporalities <- function(temporalities, appearances,
   if(! all(id.tpr %in% id.app)){
     problem <- id.tpr[which(! id.tpr %in% id.app)][1]
     msg <- paste0("event '", problem, "' not in 'appearances'")
+    stop(msg)
+  }
+  tmp <- sapply(appearances, function(a){
+    ! "col" %in% colnames(a)
+  })
+  if(any(tmp)){
+    msg <- paste0("missing column 'col' for appearances of space type '",
+                  names(appearances)[which(tmp)[1]], "'")
     stop(msg)
   }
   if(! is.null(data.source))
