@@ -27,6 +27,9 @@ list of data frame(s), one per space type
 \description{
 Reads a file containing urban temporalities in table format and returns a list of data frame(s) from it.
 }
+\seealso{
+\code{\link[=readAppearances]{readAppearances()}}, \code{\link[=plotTemporalities]{plotTemporalities()}}
+}
 \author{
 Timothee Flutre
 }

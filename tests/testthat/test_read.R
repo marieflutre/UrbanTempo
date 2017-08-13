@@ -24,7 +24,7 @@ test_that("readTemporalities_unsorted", {
 
   temporalities <- data.frame(date=c("2017-04-23", "2017-04-23"),
                               time=c("07:24", "07:13"),
-                              space1=c("shop end", "shop start"),
+                              space1=c("shop=end", "shop=start"),
                               space2=c("hawker", NA),
                               stringsAsFactors=FALSE)
   tmpf <- paste0(tmpd, "/input_temporalities.tsv")
@@ -58,7 +58,7 @@ test_that("readTemporalities_error_two_spaces", {
 
   temporalities <- data.frame(date=c("2017-04-23", "2017-04-23"),
                               time=c("07:24", "07:13"),
-                              space1=c("shop end", "shop start X"),
+                              space1=c("shop=end", "shop=start X"),
                               space2=c("hawker", NA),
                               stringsAsFactors=FALSE)
   tmpf <- paste0(tmpd, "/input_temporalities.tsv")
@@ -76,7 +76,7 @@ test_that("readTemporalities_error_not_finished_by_start_or_end", {
 
   temporalities <- data.frame(date=c("2017-04-23", "2017-04-23"),
                               time=c("07:24", "07:13"),
-                              space1=c("shop end", "shop starting"),
+                              space1=c("shop=end", "shop=starting"),
                               space2=c("hawker", NA),
                               stringsAsFactors=FALSE)
   tmpf <- paste0(tmpd, "/input_temporalities.tsv")
@@ -94,7 +94,7 @@ test_that("readTemporalities_error_end_without_start", {
 
   temporalities <- data.frame(date=c("2017-04-23"),
                               time=c("07:24"),
-                              space1=c("shop end"),
+                              space1=c("shop=end"),
                               space2=c("hawker"),
                               stringsAsFactors=FALSE)
   tmpf <- paste0(tmpd, "/input_temporalities.tsv")
@@ -112,7 +112,7 @@ test_that("readTemporalities_error_start_without_end", {
 
   temporalities <- data.frame(date=c("2017-04-23"),
                               time=c("07:13"),
-                              space1=c("shop start"),
+                              space1=c("shop=start"),
                               space2=c("hawker"),
                               stringsAsFactors=FALSE)
   tmpf <- paste0(tmpd, "/input_temporalities.tsv")
@@ -131,8 +131,8 @@ test_that("readTemporalities_mult-occurr-tempo-types-in-same-space-type", {
   temporalities <- data.frame(date=c("2017-04-23"),
                               time=c("07:13", "07:20",
                                      "07:33", "07:50"),
-                              space1=c("shop start", "shop end",
-                                       "shop start", "shop end"),
+                              space1=c("shop=start", "shop=end",
+                                       "shop=start", "shop=end"),
                               stringsAsFactors=FALSE)
   tmpf <- paste0(tmpd, "/input_temporalities.tsv")
   write.table(x=temporalities, file=tmpf, quote=FALSE, sep="\t",

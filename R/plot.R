@@ -20,11 +20,12 @@
 ##'
 ##' Draws a plot of urban temporalities, similarly to figure 4.6 in Marie Gibert's [PhD thesis](https://www.academia.edu/7549254) (2014).
 ##' @param temporalities list of data frame(s) containing urban temporalities, as returned by [readTemporalities()]
-##' @param appearances list of data frame(s) specifying the appearances of each type of temporalities; each data frame should have a column named "col" specifying the color used for each type of urban temporality
+##' @param appearances list of data frame(s) specifying the appearances of each type of temporalities, as returned by [readAppearances()]
 ##' @param main main title
 ##' @param data.source source of the data, for instance `"M. Gibert, 2013"` (skipped if NULL)
 ##' @param vertical.bars.per.hour if TRUE, a vertical bar is added for each hour
 ##' @param verbose verbosity level (0/1)
+##' @seealso [plotLegend()]
 ##' @author Timothee Flutre
 ##' @export
 plotTemporalities <- function(temporalities, appearances,
@@ -34,38 +35,77 @@ plotTemporalities <- function(temporalities, appearances,
                               verbose=1){
   stopifnot(is.list(temporalities),
             all(sapply(temporalities, is.data.frame)),
+            ! is.null(names(temporalities)),
             is.list(appearances),
             all(sapply(appearances, is.data.frame)),
-            all(names(temporalities) %in% names(appearances)),
+            ! is.null(names(appearances)),
             is.logical(vertical.bars.per.hour))
-  id.tpr <- do.call(c, lapply(temporalities, function(x){x$id}))
-  id.app <- do.call(c, lapply(appearances, rownames))
-  if(! all(id.tpr %in% id.app)){
-    problem <- id.tpr[which(! id.tpr %in% id.app)][1]
-    msg <- paste0("event '", problem, "' not in 'appearances'")
+
+  ## check space types
+  space.types.tpr <- sort(names(temporalities))
+  space.types.app <- sort(names(appearances))
+  if(! all(space.types.tpr %in% space.types.app)){
+    idx <- which(! space.types.tpr %in% space.types.app)
+    msg <- paste0("space type '", space.types.tpr[idx], "' in 'temporalities'",
+                  " has no equivalent in 'appearances'")
+    stop(msg)
+  }
+  space.types <- space.types.tpr
+
+  ## check events per space type
+  ## for(space.type in space.types){
+  ##   events.tpr <- temporalities[[space.type]]$id
+  ##   events.app <- rownames(appearances[[space.type]])
+  ##   if(! all(events.tpr %in% events.app)){
+  ##     idx <- which(! events.tpr %in% events.app)
+  ##     msg <- paste0("event '", events.tpr[idx], "'",
+  ##                   " for space type '", space.type, "' in 'temporalities'",
+  ##                   " has no equivalent in 'appearances'")
+  ##     stop(msg)
+  ##   }
+  ## }
+
+  tmp <- sapply(appearances, function(a){
+    ! "color" %in% colnames(a)
+  })
+  if(any(tmp)){
+    msg <- paste0("missing column 'color' for appearances of space type '",
+                  names(appearances)[which(tmp)[1]], "'")
     stop(msg)
   }
   tmp <- sapply(appearances, function(a){
-    ! "col" %in% colnames(a)
+    any(is.na(a$color))
   })
   if(any(tmp)){
-    msg <- paste0("missing column 'col' for appearances of space type '",
+    msg <- paste0("missing 'color' for appearance(s) of space type '",
                   names(appearances)[which(tmp)[1]], "'")
     stop(msg)
   }
   if(! is.null(data.source))
     stopifnot(is.character(data.source))
 
-  show.legend <- FALSE # hard to code, better to edit PDF in Inkscape
+  ## remove temporalities if no appearances
+  for(space.type in space.types){
+    events.tpr <- temporalities[[space.type]]$id
+    events.app <- rownames(appearances[[space.type]])
+    if(! all(events.tpr %in% events.app)){
+      idx <- which(! events.tpr %in% events.app)
+      event.types <- unique(temporalities[[space.type]]$id[idx])
+      for(event.type in event.types){
+        msg <- paste0("discard event '", event.type, "'",
+                      " for space type '", space.type, "' in 'temporalities'",
+                      " because it has no equivalent in 'appearances'")
+        warning(msg)
+      }
+      temporalities[[space.type]] <- temporalities[[space.type]][-idx,]
+    }
+  }
 
   if(verbose > 0){
     msg <- "draw plot structure..."
     message(msg)
   }
-  mar.leg <- 2
-  if(show.legend)
-    mar.leg <- 7 # to be improved, depending on inputs
-  def.par <- graphics::par(mar=c(mar.leg, 5, 5, 0.5), bty="n")
+  def.par <- graphics::par(mar=c(2, 5, 5, 0.5), bty="n")
 
   ## draw plot limits
   uniq.hours <- unique(do.call(c, lapply(temporalities, function(x){
@@ -124,6 +164,10 @@ plotTemporalities <- function(temporalities, appearances,
   for(i in 1:length(temporalities)){ # per space type
     space.type <- names(temporalities)[i]
     for(j in 1:nrow(temporalities[[i]])){ # one by one
+      if("density" %in% colnames(appearances[[space.type]]) &&
+         ! is.na(appearances[[space.type]][temporalities[[i]]$id[j],
+                                           "density"]))
+        next # draw shaded areas after the colored ones
       h0 <- temporalities[[i]]$start[j]$hour
       m0 <- temporalities[[i]]$start[j]$min
       h1 <- temporalities[[i]]$end[j]$hour
@@ -131,8 +175,25 @@ plotTemporalities <- function(temporalities, appearances,
       x <- c(h0 + m0/60, h0 + m0/60, h1 + m1/60, h1 + m1/60)
       y <- c(rev(y.seq)[i] - 1, rev(y.seq)[i], rev(y.seq)[i], rev(y.seq)[i] - 1)
       col <- as.character(appearances[[space.type]][temporalities[[i]]$id[j],
-                                                    "col"])
+                                                    "color"])
       graphics::polygon(x=x, y=y, col=col, border=NA)
+    }
+    for(j in 1:nrow(temporalities[[i]])){ # one by one
+      if("density" %in% colnames(appearances[[space.type]]) &&
+         is.na(appearances[[space.type]][temporalities[[i]]$id[j],
+                                         "density"]))
+        next
+      h0 <- temporalities[[i]]$start[j]$hour
+      m0 <- temporalities[[i]]$start[j]$min
+      h1 <- temporalities[[i]]$end[j]$hour
+      m1 <- temporalities[[i]]$end[j]$min
+      x <- c(h0 + m0/60, h0 + m0/60, h1 + m1/60, h1 + m1/60)
+      y <- c(rev(y.seq)[i] - 1, rev(y.seq)[i], rev(y.seq)[i], rev(y.seq)[i] - 1)
+      col <- as.character(appearances[[space.type]][temporalities[[i]]$id[j],
+                                                    "color"])
+      dty <- as.numeric(appearances[[space.type]][temporalities[[i]]$id[j],
+                                                  "density"])
+      graphics::polygon(x=x, y=y, col=col, density=dty, border=NA)
     }
   }
 
@@ -142,18 +203,70 @@ plotTemporalities <- function(temporalities, appearances,
       message(msg)
     }
     graphics::mtext(text=paste0("Source: ", data.source), side=1,
-                    line=mar.leg - 2, at=xlim[2], adj=1, padj=1)
+                    line=0, at=xlim[2], adj=1, padj=1)
   }
 
-  if(show.legend){ # hard to code, better to edit PDF in Inkscape
-    if(verbose > 0){
-      msg <- "add legend..."
-      message(msg)
-    }
-    for(i in 1:length(temporalities)){
-      graphics::mtext(text=bquote(bold(.(names(temporalities)[i]))), side=1,
-                      line=2, at=xlim[1] + 0.5 * (i-1))
-    }
+  on.exit(graphics::par(def.par))
+}
+
+##' Plot the legend
+##'
+##' Plot the legend associated with urban temporalities, in its on plot.
+##' @param appearances list of data frame(s) specifying the appearances of each type of temporalities; each data frame should have a column named "color" specifying the color used for each type of urban temporality; moreover, if there is no column named "leg", then row names will be used as labels
+##' @author Timothee Flutre
+##' @seealso \code{\link{plotTemporalities}}
+##' @export
+plotLegend <- function(appearances){
+  stopifnot(is.list(appearances),
+            all(sapply(appearances, is.data.frame)))
+  tmp <- sapply(appearances, function(a){
+    ! "color" %in% colnames(a)
+  })
+  if(any(tmp)){
+    msg <- paste0("missing column 'color' for appearances of space type '",
+                  names(appearances)[which(tmp)[1]], "'")
+    stop(msg)
+  }
+
+  ## add labels if necessary
+  tmp <- sapply(appearances, function(a){
+    ! "leg" %in% colnames(a)
+  })
+  if(any(tmp)){
+    appearances <- lapply(appearances, function(a){
+      if("leg" %in% colnames(a)){
+        a
+      } else{
+        a$leg <- rownames(a)
+        a
+      }
+    })
+  }
+
+  def.par <- graphics::par(bty="n")
+
+  nb.space.types <- length(appearances)
+  mat <- matrix(data=1:nb.space.types, nrow=1, ncol=nb.space.types)
+  widths <- rep(1, nb.space.types)
+  max.nb.temp.types <- max(sapply(appearances, nrow))
+  heights <- rep(max.nb.temp.types, nb.space.types)
+  graphics::layout(mat, widths, heights)
+
+  for(i in seq_along(appearances)){ # per space type
+    graphics::plot(x=0, y=0, type="n", xaxt="n", yaxt="n",
+                   main="", xlab="", ylab="")
+    graphics::title(main=names(appearances)[i], cex.main=2)
+    if("density" %in% colnames(appearances[[i]])){
+      graphics::legend("top", legend=appearances[[i]]$leg,
+                       fill=as.character(appearances[[i]]$color),
+                       border=as.character(appearances[[i]]$color),
+                       density=as.numeric(appearances[[i]]$density),
+                       bty="n", cex=1)
+    } else
+      graphics::legend("top", legend=appearances[[i]]$leg,
+                       fill=as.character(appearances[[i]]$color),
+                       border=as.character(appearances[[i]]$color),
+                       bty="n", cex=1)
   }
 
   on.exit(graphics::par(def.par))

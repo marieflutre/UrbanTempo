@@ -29,6 +29,15 @@ library(rmarkdown)
 render("introduction.Rmd", "html_document")
 -->
 
+<!--
+This R chunk is used to set up some options.
+-->
+```{r setup, include=FALSE}
+suppressPackageStartupMessages(library(knitr))
+opts_chunk$set(echo=TRUE, warning=TRUE, message=TRUE, cache=FALSE, fig.align="center")
+opts_knit$set(progress=TRUE, verbose=TRUE)
+```
+
 
 # Preamble
 
@@ -63,7 +72,7 @@ Let's create a minimal data set of two space types, with a total of one interval
 tmpd <- tempdir() # temporary directory
 input.df <- data.frame("date"=c("2017-04-23", "2017-04-23", "2017-04-23"),
                        "time"=c("07:24", "07:13", "08:17"),
-                       "shops"=c("shop end", "shop start", NA),
+                       "shops"=c("shop=end", "shop=start", NA),
                        "street"=c("hawker", NA, "hawker"),
                        stringsAsFactors=FALSE)
 tmpf <- paste0(tmpd, "/input_temporalities.tsv") # temporary file
@@ -95,8 +104,8 @@ First, we need to specify the appearance of each type of temporalities, such as 
 * https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/colorPaletteCheatsheet.pdf
 
 ```{r fake_data_app}
-app <- list("shops"=data.frame(col="chocolate", row.names="shop"),
-            "street"=data.frame(col="blueviolet", row.names="hawker"))
+app <- list("shops"=data.frame(color="chocolate", row.names="shop"),
+            "street"=data.frame(color="blueviolet", row.names="hawker"))
 ```
 
 Then, the input temporalities contained in the `tpr` variable can be plotted with the following function:
@@ -150,11 +159,11 @@ lapply(tpr, function(x){unique(x$id)})
 
 Choose the colors:
 ```{r}
-app <- list(shops=data.frame(col=c("darkgrey", "orange", "darkorange1"),
+app <- list(shops=data.frame(color=c("darkgrey", "orange", "darkorange1"),
                              row.names=c("closed", "preparing", "opened")),
-            houses=data.frame(col=c("burlywood3", "darkgrey", "hotpink3"),
+            houses=data.frame(color=c("burlywood3", "darkgrey", "hotpink3"),
                               row.names=c("stalls", "cleaning", "social")),
-            street=data.frame(col=c("darkmagenta", "darkslateblue", "orange", "cyan"),
+            street=data.frame(color=c("darkmagenta", "darkslateblue", "orange", "cyan"),
                               row.names=c("hawker", "collector", "delivery", "beggar")))
 ```
 

@@ -29,10 +29,12 @@
 ##' @param duration.event duration of a ponctual event, in seconds
 ##' @param verbose verbosity level (0/1/2)
 ##' @return list of data frame(s), one per space type
+##' @seealso [readAppearances()], [plotTemporalities()]
 ##' @author Timothee Flutre
 ##' @export
 readTemporalities <- function(file, duration.event=60, verbose=1){
-  stopifnot(is.numeric(duration.event),
+  stopifnot(is.character(file),
+            is.numeric(duration.event),
             length(duration.event) == 1,
             is.numeric(verbose) || is.integer(verbose),
             length(verbose) == 1)
@@ -74,22 +76,25 @@ readTemporalities <- function(file, duration.event=60, verbose=1){
     for(i in 1:nrow(input)){ # for each row
       if(is.na(input[i, col.idx]))
         next
+      input[i, col.idx] <- gsub(" ;", ";", input[i, col.idx])
       events <- strsplit(input[i, col.idx], ";")[[1]]
       events <- trimws(events)
 
       for(event in events){ # handle each event (not efficient code...)
-        event <- strsplit(event, " ")[[1]]
+        event <- strsplit(event, "=")[[1]]
 
         if(length(event) > 2){
           msg <- paste0("for space type '", space.type, "'",
-                        " at time '", input$time[i], "',",
+                        " at time '", input$time[i], "'",
+                        " (i=", i, "),",
                         " event '", paste(event, collapse=" "), "'",
                         " has more than one space")
           stop(msg)
         } else if(length(event) == 2){ # interval boundary (start or end)
           if(! event[2] %in% c("start", "end")){
             msg <- paste0("for space type '", space.type, "'",
-                          " at time '", input$time[i], "',",
+                          " at time '", input$time[i], "'",
+                          " (i=", i, "),",
                           " interval boundary '", paste(event, collapse=" "), "'",
                           " should finish by 'start' or 'end'")
             stop(msg)
@@ -101,7 +106,8 @@ readTemporalities <- function(file, duration.event=60, verbose=1){
           } else if(event[2] == "end"){
             if(! event[1] %in% df$id){
               msg <- paste0("for space type '", space.type, "'",
-                            " at time '", input$time[i], "',",
+                            " at time '", input$time[i], "'",
+                            " (i=", i, "),",
                             " interval end '", paste(event, collapse=" "), "'",
                             " has no specified start")
               stop(msg)
@@ -125,7 +131,8 @@ readTemporalities <- function(file, duration.event=60, verbose=1){
     idx <- which(is.na(df$end))
     if(length(idx) > 0){
       msg <- paste0("for space type '", space.type, "'",
-                    " at start time '", df$start[idx[1]], "',",
+                    " at start time '", df$start[idx[1]], "'",
+                    " (i=", i, "),",
                     " interval '", df$id[idx[1]], "'",
                     " has no specified end")
       stop(msg)
@@ -144,6 +151,80 @@ readTemporalities <- function(file, duration.event=60, verbose=1){
                     ifelse(length(unique(out[[i]]$id)) > 1, "s", ""), ", ",
                     nrow(out[[i]]), " time point",
                     ifelse(nrow(out[[i]]) > 1, "s", ""))
+    message(msg)
+  }
+
+  return(out)
+}
+
+##' Input of appearances
+##'
+##' Reads a file containing the appearances in table format, and returns a list of data frame(s) from it.
+##' @param file the name of the file which the data are to be read from.
+##' The content of this file should correspond to urban temporalities as read by [readTemporalities()], with one row per event.
+##' The first line (header) should contain column names, and columns should be separated by a tabulation:
+##' * first column: should be named `"space"`;
+##' * second column: should be named `"event"`;
+##' * third column: should be named `"color"`;
+##' * (optional) fourth column: should be named `"density"`.
+##' @param verbose verbosity level (0/1/2)
+##' @return list of data frame(s), one per space type
+##' @seealso [readTemporalities()], [plotTemporalities()]
+##' @author Timothee Flutre
+##' @export
+readAppearances <- function(file, verbose=1){
+  stopifnot(is.character(file),
+            is.numeric(verbose) || is.integer(verbose),
+            length(verbose) == 1)
+
+  out <- list()
+
+  if(verbose > 0){
+    msg <- "read the input file into a data frame, and check it..."
+    message(msg)
+  }
+  input <- utils::read.table(file=file, header=TRUE, sep="\t", comment.char="#",
+                             stringsAsFactors=FALSE)
+  stopifnot(ncol(input) >= 3,
+            all(c("space", "event", "color") %in% colnames(input)))
+
+  idx.empty <- which(input$color == "")
+  if(length(idx.empty) > 0){
+    msg <- paste0("replace missing color for event '", input$event[idx.empty[1]], "'",
+                  " in space type '", input$space[idx.empty[1]], "' by 'black'")
+    warning(msg)
+    input$color[idx.empty] <- "black"
+  }
+  if("density" %in% colnames(input)){
+    idx.empty <- which(input$density == "")
+    if(length(idx.empty) > 0)
+      input$density[idx.empty] <- NA
+  }
+
+  space.types <- unique(input$space)
+  for(space.type in space.types){
+    idx <- which(input$space == space.type)
+    out[[space.type]] <- data.frame(color=input[idx, "color"],
+                                    stringsAsFactors=FALSE)
+    if(anyDuplicated(input[idx, "event"])){
+      dupl.event <- input[idx, "event"][duplicated(input[idx, "event"])][1]
+      msg <- paste0("for space type '", space.type, "',",
+                    " event '", dupl.event, "' is duplicated")
+      stop(msg)
+    }
+    rownames(out[[space.type]]) <- input[idx, "event"]
+    if("density" %in% colnames(input))
+      out[[space.type]]$density <- input[idx, "density"]
+  }
+
+  ## show a brief summary
+  if(verbose > 0){
+    msg <- paste0("summary: ", length(out), " space type",
+                  ifelse(length(out) > 1, "s", ""))
+    for(i in 1:length(out))
+      msg <- paste0(msg, "\n (", i, ") ", names(out)[i], ": ",
+                    length(rownames(out[[i]])), " temporality type",
+                    ifelse(length(rownames(out[[i]])) > 1, "s", ""))
     message(msg)
   }
 

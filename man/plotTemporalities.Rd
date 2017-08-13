@@ -11,7 +11,7 @@ plotTemporalities(temporalities, appearances, main = "Urban temporalities",
 \arguments{
 \item{temporalities}{list of data frame(s) containing urban temporalities, as returned by \code{\link[=readTemporalities]{readTemporalities()}}}
 
-\item{appearances}{list of data frame(s) specifying the appearances of each type of temporalities; each data frame should have a column named "col" specifying the color used for each type of urban temporality}
+\item{appearances}{list of data frame(s) specifying the appearances of each type of temporalities, as returned by \code{\link[=readAppearances]{readAppearances()}}}
 
 \item{main}{main title}
 
@@ -23,6 +23,9 @@ plotTemporalities(temporalities, appearances, main = "Urban temporalities",
 }
 \description{
 Draws a plot of urban temporalities, similarly to figure 4.6 in Marie Gibert's \href{https://www.academia.edu/7549254}{PhD thesis} (2014).
+}
+\seealso{
+\code{\link[=plotLegend]{plotLegend()}}
 }
 \author{
 Timothee Flutre
