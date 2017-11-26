@@ -157,3 +157,32 @@ test_that("readTemporalities_mult-occurr-tempo-types-in-same-space-type", {
   if(file.exists(tmpf))
     file.remove(tmpf)
 })
+
+test_that("readTemporalities_various_dates", {
+  tmpd <- tempdir()
+
+  temporalities <- data.frame(date=c("2017-04-23", "2017-05-02"),
+                              time=c("07:24", "07:13"),
+                              space1=c("hawker", "collector"),
+                              stringsAsFactors=FALSE)
+  tmpf <- paste0(tmpd, "/input_temporalities.tsv")
+  write.table(x=temporalities, file=tmpf, quote=FALSE, sep="\t",
+              row.names=FALSE, col.names=TRUE)
+
+  expected <- list(
+      space1=data.frame(id=c("collector", "hawker"),
+                        start=c(strptime(c("2017-05-02 07:13",
+                                           "2017-04-23 07:24"),
+                                         "%Y-%m-%d %H:%M")),
+                        end=c(strptime(c("2017-05-02 07:14",
+                                         "2017-04-23 07:25"),
+                                       "%Y-%m-%d %H:%M")),
+                        stringsAsFactors=FALSE))
+
+  observed <- readTemporalities(file=tmpf, duration.event=60, verbose=0)
+
+  expect_equal(observed, expected)
+
+  if(file.exists(tmpf))
+    file.remove(tmpf)
+})

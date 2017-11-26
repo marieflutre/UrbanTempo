@@ -21,6 +21,7 @@
                 "' (version ", utils::packageVersion(pkgname), ")",
                 " is loaded",
                 "\nCopyright 2017 Timoth\u00E9e Flutre, Universit\u00E9 Paris-Diderot",
-                "\nLicense GNU AGPL version 3 or later")
+                "\nLicense GNU AGPL version 3 or later",
+                "\nStart by reading the package description: `?UrbanTempo`")
   packageStartupMessage(msg)
 }

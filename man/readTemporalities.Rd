@@ -8,13 +8,14 @@ readTemporalities(file, duration.event = 60, verbose = 1)
 }
 \arguments{
 \item{file}{the name of the file which the data are to be read from.
-Space types are in columns and each row corresponds to a specific time (a file corresponds to a single day).
+Space types are in columns and each row corresponds to a specific time.
 The first line (header) should contain column names, and columns should be separated by a tabulation:
 \itemize{
-\item first column: should be named \code{"date"} and formatted as year-month-day, for instance \code{"2017-04-23"};
+\item first column: should be named \code{"date"} and formatted as year-month-day, for instance \code{"2017-04-23"} (a single file can contain data collected at different days);
 \item second column: should be named \code{"time"} and formatted as hour:minute, for instance \code{"17:02"};
 \item third column: corresponds to the first space type;
-\item and so on.
+\item fourth column: corresponds to the second space type (if any);
+\item and so on, if there are several space types.
 }}
 
 \item{duration.event}{duration of a ponctual event, in seconds}
@@ -26,6 +27,17 @@ list of data frame(s), one per space type
 }
 \description{
 Reads a file containing urban temporalities in table format and returns a list of data frame(s) from it.
+}
+\examples{
+## retrieve the path to the example data file provided with the package
+f <- system.file("extdata", "Gibert_2014_data-PhD-thesis.tsv",
+                 package="UrbanTempo")
+
+## read the file
+tpr <- readTemporalities(file=f)
+
+## for each space type, look at its temporality types
+lapply(tpr, function(x){unique(x$id)})
 }
 \seealso{
 \code{\link[=readAppearances]{readAppearances()}}, \code{\link[=plotTemporalities]{plotTemporalities()}}

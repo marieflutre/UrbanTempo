@@ -2,13 +2,19 @@
 ==============
 
 This directory contains the UrbanTempo package for the [R](https://www.r-project.org/) programming language and software environment for statistical computing.
-This package contains computer code to **plot urban temporalities from observational data**, similarly to figure 4.6 in Marie Gibert's [PhD thesis](https://www.academia.edu/7549254) (2014) as well as a figure in her forthcoming book chapter (Southeast Asia urbanization, Routledge handbook).
+This package contains computer code to **plot urban temporalities from observational data**, similarly to figure 4.6 in Marie Gibert's PhD thesis ([2014](https://www.academia.edu/7549254)) as well as a figure in her forthcoming book chapter (Southeast Asia urbanization, Routledge handbook).
 As such, this package can be **of interest to urban geographers and anthropologists**.
 
-This software is available under a [free software](https://en.wikipedia.org/wiki/Free_software) license, the [GNU Affero General Public License](https://www.gnu.org/licenses/agpl.html) (version 3 and later).
-See the COPYING file for details.
-For more details about free software, you can refer to the [information](https://www.gnu.org/philosophy/philosophy.en.html) provided by the [Free Software Foundation](https://en.wikipedia.org/wiki/Free_Software_Foundation).
+Indeed, beyond the long-term processes of urbanization, daily urban practices contribute greatly to the production and continual adaptation of the urban fabric.
+Methodologically, such an investigation can be carried out by means of Lefebvre’s "rhythmanalysis" (original in French in [1992](https://www.syllepse.net/lng_FR_srub_59_iprod_24-elements-de-rythmanalyse.html), English translation in [2004](https://www.bloomsbury.com/uk/rhythmanalysis-9781472507167/)), which seeks to capture the everyday rhythms and dynamics of social life.
+This methodology, initiated in Ho Chi Minh City in Gibert's PhD thesis (2014) and developed in Gibert-Flutre (in prep) as part of the [SEANNET](https://ukna.asia/seannet) program, is particularly relevant in urban context, where it reveals highly polyrhythmic places and neighborhoods.
 
+Practically, before installing and using the UrbanTempo package, you first need to define your research question and choose the urban location you are interested in.
+Then, you can start the long process of collecting data on urban temporalities.
+Once this is done, the goal of this package is to help you drawing a figure representing the urban temporalities you observed.
+
+This software is available under a [free software](https://en.wikipedia.org/wiki/Free_software) license, the [GNU Affero General Public License](https://www.gnu.org/licenses/agpl.html) (version 3 and later); see the COPYING file.
+For more details about free software, you can refer to the [information](https://www.gnu.org/philosophy/philosophy.en.html) provided by the [Free Software Foundation](https://en.wikipedia.org/wiki/Free_Software_Foundation).
 The content of this package is versioned using the [git](http://www.git-scm.com/) software, the central repository being hosted on the [GitHub](https://github.com/marieflutre/UrbanTempo) website.
 
 
@@ -22,19 +28,23 @@ This software is also available under a free software license, hence is best use
 For Mac users, if asked, there is no need to install "git" or "XCode" tools.
 
 Once this is done, launch RStudio, which will also automatically launch an interactive R session.
-At this stage, you still need to install the devtools package, along with its dependencies.
-This is easily done via the following command, to be copy-pasted and executed in the R console of RStudio:
+At this stage, you still need to install the devtools package (details [here](https://cran.r-project.org/package=devtools)), along with its dependencies.
+This is easily done via the following command, to be copy-pasted in the R console of RStudio, and executed by pressing the Enter key:
 ```
 install.packages("devtools")
 ```
 
-Once this is done, you need to load the devtools package into the session, and install the UrbanTempo package, via the following commands, to be copy-pasted and executed in the R console:
+Once this is done, you need to load the devtools package into the session via the following command:
 ```
 library(devtools)
+```
+
+Once this is done, you can now install the UrbanTempo package via the following command:
+```
 install_github("marieflutre/UrbanTempo", build_vignettes=TRUE)
 ```
 
-Once this is done, the UrbanTempo package should be available on your computer.
+Once this is done, the UrbanTempo package is available on your computer.
 
 
 # Usage
@@ -44,14 +54,19 @@ Once the Urban Tempo package is available on your computer, it can be loaded int
 library(UrbanTempo)
 ```
 
-You are encouraged to first read the introductory tutorial in details:
+A brief explanation of how to use this package is available directly via the R console:
+```
+?UrbanTempo
+```
+
+You are also encouraged to read the tutorial:
 ```
 browseVignettes("UrbanTempo")
 ```
 
-This should automatically display the R vignette coming with the package into your default web browser, such as [Firefox](https://en.wikipedia.org/wiki/Firefox) (free software).
+Executing this command should automatically display the R vignette coming with the package into your default web browser, such as [Firefox](https://en.wikipedia.org/wiki/Firefox) (free software).
 
-Some information about the package is also available directly via the R console:
+Some information about the package, including the list of all its functions, is also available directly via the R console:
 ```
 help(package="UrbanTempo")
 ```
@@ -61,7 +76,7 @@ For any given function, its documentation is available by adding the question ma
 ?readTemporalities
 ```
 
-If you are new to R, it is advised to read its official [documentation](https://cran.r-project.org/manuals.html).
+Most importantly, if you are new to R, it is advised to read its official [documentation](https://cran.r-project.org/manuals.html).
 Other useful sources of information are listed below:
 
 * https://cran.r-project.org/faqs.html

@@ -59,11 +59,60 @@ t0 <- proc.time()
 # Context
 
 Beyond the long-term processes of urbanization, daily urban practices contribute greatly to the production and continual adaptation of the urban fabric.
-Methodologically, such an investigation can be carried out by means of Lefebvre’s "rhythmanalysis" (2004), which seeks to capture the everyday rhythms and dynamics of social life.
-This methodology  developed in my PhD thesis (Gibert, 2014) is particularly relevant in Ho Chi Minh City urban context, where it reveals highly "polyrhythmic places" and neighborhoods.
+Methodologically, such an investigation can be carried out by means of Lefebvre’s "rhythmanalysis" (original in French in [1992](https://www.syllepse.net/lng_FR_srub_59_iprod_24-elements-de-rythmanalyse.html), English translation in [2004](https://www.bloomsbury.com/uk/rhythmanalysis-9781472507167/)), which seeks to capture the everyday rhythms and dynamics of social life.
+This methodology, initiated in Ho Chi Minh City in Gibert's PhD thesis ([2014](https://www.academia.edu/7549254)) and developed in Gibert-Flutre (in prep) as part of the [SEANNET](https://ukna.asia/seannet) program, is particularly relevant in urban context, where it reveals highly polyrhythmic places and neighborhoods.
 
 
-# Show an example with fake data
+# Reproduce the figure from Gibert's PhD thesis (2014)
+
+Retrieve the data from a file which is part of the UrbanTempo package:
+```{r}
+f <- system.file("extdata", "Gibert_2014_data-PhD-thesis.tsv",
+                 package="UrbanTempo")
+```
+
+Load the data from this file (observations from 7am to 12pm):
+```{r}
+tpr <- readTemporalities(file=f)
+```
+
+Have a quick look at the data:
+```{r}
+lapply(tpr, function(x){unique(x$id)})
+```
+
+Choose the colors:
+```{r}
+app <- list(shops=data.frame(color=c("darkgrey", "orange", "darkorange1"),
+                             row.names=c("closed", "preparing", "opened")),
+            houses=data.frame(color=c("burlywood3", "darkgrey", "hotpink3"),
+                              row.names=c("stalls", "cleaning", "social")),
+            street=data.frame(color=c("darkmagenta", "darkslateblue", "orange", "cyan"),
+                              row.names=c("hawker", "collector", "delivery", "beggar")))
+```
+
+Make the plot:
+```{r, fig.width=15, fig.height=5}
+plotTemporalities(temporalities=tpr, appearances=app,
+                  main="Urban temporalities (alleyway 246 Xo Viet Nghe Tinh)",
+                  data.source="M. Gibert, 08/08/2011")
+```
+
+Save the plot and the legend together on a two-page PDF:
+```{r, eval=FALSE}
+pdf(file="plot_temporalities.pdf", width=7, height=4,
+    title="Urban temporalities")
+plotTemporalities(temporalities=tpr, appearances=app,
+                  main="Urban temporalities (alleyway 246 Xo Viet Nghe Tinh)",
+                  data.source="M. Gibert, 08/08/2011")
+plotLegend(appearances=app)
+dev.off()
+```
+
+The resulting PDF file can be edited with [Inkscape](https://inkscape.org) (free software) or Adobe Illustrator.
+
+
+# Experiment with fake data
 
 ## Create data
 
@@ -119,15 +168,10 @@ plotTemporalities(temporalities=tpr, appearances=app,
 
 More details are available in the help of this function, via `?plotTemporalities`.
 
-If we want to save such a plot in, say, the [PDF](https://en.wikipedia.org/wiki/Portable_Document_Format) format, we can do it with the following commands:
-```{r fake_data_plot_pdf, eval=FALSE}
-pdf(file="plot_temporalities.pdf", width=7, height=4,
-    title="Urban temporalities")
-plotTemporalities(temporalities=tpr, appearances=app)
-dev.off()
+To add the legend, look at the `?plotLegend` function:
+```{r fake_data_plot_legend, fig.width=8}
+plotLegend(appearances=app)
 ```
-
-To add the legend, such a file can be edited with [Inkscape](https://inkscape.org) (free software) or Adobe Illustrator.
 
 
 ## Clean
@@ -136,42 +180,6 @@ Remove the temporary file:
 ```{r fake_data_clean}
 if(file.exists(tmpf))
   file.remove(tmpf)
-```
-
-
-# Reproduce the figure from Gibert's PhD thesis (2014)
-
-Retrieve the data from a file which is part of the UrbanTempo package:
-```{r}
-f <- system.file("extdata", "Gibert_2014_data-PhD-thesis.tsv",
-                 package="UrbanTempo")
-```
-
-Load the data from this file (observations from 7am to 12pm):
-```{r}
-tpr <- readTemporalities(file=f)
-```
-
-Have a quick look at the data:
-```{r}
-lapply(tpr, function(x){unique(x$id)})
-```
-
-Choose the colors:
-```{r}
-app <- list(shops=data.frame(color=c("darkgrey", "orange", "darkorange1"),
-                             row.names=c("closed", "preparing", "opened")),
-            houses=data.frame(color=c("burlywood3", "darkgrey", "hotpink3"),
-                              row.names=c("stalls", "cleaning", "social")),
-            street=data.frame(color=c("darkmagenta", "darkslateblue", "orange", "cyan"),
-                              row.names=c("hawker", "collector", "delivery", "beggar")))
-```
-
-Make the plot:
-```{r, fig.width=15, fig.height=5}
-plotTemporalities(temporalities=tpr, appearances=app,
-                  main="Urban temporalities (alleyway 246 Xo Viet Nghe Tinh)",
-                  data.source="M. Gibert, 08/08/2011")
 ```
 
 

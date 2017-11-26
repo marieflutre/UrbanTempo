@@ -20,17 +20,28 @@
 ##'
 ##' Reads a file containing urban temporalities in table format and returns a list of data frame(s) from it.
 ##' @param file the name of the file which the data are to be read from.
-##' Space types are in columns and each row corresponds to a specific time (a file corresponds to a single day).
+##' Space types are in columns and each row corresponds to a specific time.
 ##' The first line (header) should contain column names, and columns should be separated by a tabulation:
-##' * first column: should be named `"date"` and formatted as year-month-day, for instance `"2017-04-23"`;
+##' * first column: should be named `"date"` and formatted as year-month-day, for instance `"2017-04-23"` (a single file can contain data collected at different days);
 ##' * second column: should be named `"time"` and formatted as hour:minute, for instance `"17:02"`;
 ##' * third column: corresponds to the first space type;
-##' * and so on.
+##' * fourth column: corresponds to the second space type (if any);
+##' * and so on, if there are several space types.
 ##' @param duration.event duration of a ponctual event, in seconds
 ##' @param verbose verbosity level (0/1/2)
 ##' @return list of data frame(s), one per space type
 ##' @seealso [readAppearances()], [plotTemporalities()]
 ##' @author Timothee Flutre
+##' @examples
+##' ## retrieve the path to the example data file provided with the package
+##' f <- system.file("extdata", "Gibert_2014_data-PhD-thesis.tsv",
+##'                  package="UrbanTempo")
+##'
+##' ## read the file
+##' tpr <- readTemporalities(file=f)
+##'
+##' ## for each space type, look at its temporality types
+##' lapply(tpr, function(x){unique(x$id)})
 ##' @export
 readTemporalities <- function(file, duration.event=60, verbose=1){
   stopifnot(is.character(file),
@@ -48,17 +59,14 @@ readTemporalities <- function(file, duration.event=60, verbose=1){
   input <- utils::read.table(file=file, header=TRUE, sep="\t", comment.char="#",
                              stringsAsFactors=FALSE)
   stopifnot(ncol(input) >= 3,
-            all(colnames(input)[1:2] == c("date", "time")),
-            length(unique(input$date)) == 1)
+            all(colnames(input)[1:2] == c("date", "time")))
 
   if(verbose > 0){
     msg <- "sort it according to the 'time' column..."
     message(msg)
   }
-  ## input$datetime <- strptime(x=paste(input$date, input$time),
-  ##                            format="%Y-%m-%d %H:%M")
   input$datetime <- as.POSIXlt(paste(input$date, input$time))
-  input <- input[order(input$datetime),]
+  input <- input[order(input$time),]
 
   if(verbose > 0){
     msg <- "reformat each column corresponding to a space type..."
