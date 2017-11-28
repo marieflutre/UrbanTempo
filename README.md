@@ -118,6 +118,8 @@ The resulting file is in "plain text" format, with columns separated by a tabula
 Such a file can be opened with virtually all softwares on all computers.
 A typical usage would be to open it with the Calc software from the [LibreOffice](https://www.libreoffice.org/) suite (free software), or with the Excel software from the Microsoft Office suite.
 
+You can also download the example file specifying the appearances of the data (such as their colors), by clicking [here](https://raw.githubusercontent.com/marieflutre/UrbanTempo/master/inst/extdata/Gibert_2014_colors-PhD-thesis.tsv).
+
 
 # Issues
 

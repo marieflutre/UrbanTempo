@@ -1,0 +1,11 @@
+space	event	color
+shops	closed	darkgrey
+shops	preparing	orange
+shops	opened	darkorange1
+houses	stalls	burlywood3
+houses	cleaning	darkgrey
+houses	social	hotpink3
+street	hawker	darkmagenta
+street	collector	darkslateblue
+street	delivery	orange
+street	beggar	cyan

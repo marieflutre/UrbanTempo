@@ -30,11 +30,11 @@ Reads a file containing urban temporalities in table format and returns a list o
 }
 \examples{
 ## retrieve the path to the example data file provided with the package
-f <- system.file("extdata", "Gibert_2014_data-PhD-thesis.tsv",
-                 package="UrbanTempo")
+f1 <- system.file("extdata", "Gibert_2014_data-PhD-thesis.tsv",
+                  package="UrbanTempo")
 
 ## read the file
-tpr <- readTemporalities(file=f)
+tpr <- readTemporalities(file=f1)
 
 ## for each space type, look at its temporality types
 lapply(tpr, function(x){unique(x$id)})

@@ -34,11 +34,11 @@
 ##' @author Timothee Flutre
 ##' @examples
 ##' ## retrieve the path to the example data file provided with the package
-##' f <- system.file("extdata", "Gibert_2014_data-PhD-thesis.tsv",
-##'                  package="UrbanTempo")
+##' f1 <- system.file("extdata", "Gibert_2014_data-PhD-thesis.tsv",
+##'                   package="UrbanTempo")
 ##'
 ##' ## read the file
-##' tpr <- readTemporalities(file=f)
+##' tpr <- readTemporalities(file=f1)
 ##'
 ##' ## for each space type, look at its temporality types
 ##' lapply(tpr, function(x){unique(x$id)})
@@ -173,12 +173,19 @@ readTemporalities <- function(file, duration.event=60, verbose=1){
 ##' The first line (header) should contain column names, and columns should be separated by a tabulation:
 ##' * first column: should be named `"space"`;
 ##' * second column: should be named `"event"`;
-##' * third column: should be named `"color"`;
+##' * third column: should be named `"color"` (choose among all possibilities as explained \href{http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf}{here} and \href{https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/colorPaletteCheatsheet.pdf}{there});
 ##' * (optional) fourth column: should be named `"density"`.
 ##' @param verbose verbosity level (0/1/2)
 ##' @return list of data frame(s), one per space type
 ##' @seealso [readTemporalities()], [plotTemporalities()]
 ##' @author Timothee Flutre
+##' @examples
+##' ## retrieve the path to the example color file provided with the package
+##' f2 <- system.file("extdata", "Gibert_2014_colors-PhD-thesis.tsv",
+##'                   package="UrbanTempo")
+##'
+##' ## read the file
+##' app <- readAppearances(file=f2)
 ##' @export
 readAppearances <- function(file, verbose=1){
   stopifnot(is.character(file),

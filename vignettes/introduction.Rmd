@@ -67,13 +67,13 @@ This methodology, initiated in Ho Chi Minh City in Gibert's PhD thesis ([2014](h
 
 Retrieve the data from a file which is part of the UrbanTempo package:
 ```{r}
-f <- system.file("extdata", "Gibert_2014_data-PhD-thesis.tsv",
-                 package="UrbanTempo")
+f1 <- system.file("extdata", "Gibert_2014_data-PhD-thesis.tsv",
+                  package="UrbanTempo")
 ```
 
 Load the data from this file (observations from 7am to 12pm):
 ```{r}
-tpr <- readTemporalities(file=f)
+tpr <- readTemporalities(file=f1)
 ```
 
 Have a quick look at the data:
@@ -81,8 +81,19 @@ Have a quick look at the data:
 lapply(tpr, function(x){unique(x$id)})
 ```
 
-Choose the colors:
+Retrieve the colors from a file which is also part of the UrbanTempo package:
 ```{r}
+f2 <- system.file("extdata", "Gibert_2014_colors-PhD-thesis.tsv",
+                  package="UrbanTempo")
+```
+
+Load the colors from this file:
+```{r}
+app <- readAppearances(file=f2)
+```
+
+Choose the colors:
+```{r, eval=FALSE}
 app <- list(shops=data.frame(color=c("darkgrey", "orange", "darkorange1"),
                              row.names=c("closed", "preparing", "opened")),
             houses=data.frame(color=c("burlywood3", "darkgrey", "hotpink3"),

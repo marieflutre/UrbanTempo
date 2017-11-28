@@ -13,7 +13,7 @@ The first line (header) should contain column names, and columns should be separ
 \itemize{
 \item first column: should be named \code{"space"};
 \item second column: should be named \code{"event"};
-\item third column: should be named \code{"color"};
+\item third column: should be named \code{"color"} (choose among all possibilities as explained \href{http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf}{here} and \href{https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/colorPaletteCheatsheet.pdf}{there});
 \item (optional) fourth column: should be named \code{"density"}.
 }}
 
@@ -24,6 +24,14 @@ list of data frame(s), one per space type
 }
 \description{
 Reads a file containing the appearances in table format, and returns a list of data frame(s) from it.
+}
+\examples{
+## retrieve the path to the example color file provided with the package
+f2 <- system.file("extdata", "Gibert_2014_colors-PhD-thesis.tsv",
+                  package="UrbanTempo")
+
+## read the file
+app <- readAppearances(file=f2)
 }
 \seealso{
 \code{\link[=readTemporalities]{readTemporalities()}}, \code{\link[=plotTemporalities]{plotTemporalities()}}
