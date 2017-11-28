@@ -103,20 +103,21 @@ See also `citation()` for citing the R software itself.
 # Example of input file
 
 In the introductory tutorial (R vignette mentioned above), you will see how to reproduce part of figure 4.6 from Marie Gibert's PhD thesis and her forthcoming book chapter.
-The data used to reproduce this figure are provided with the package as an example.
-Once the package is installed on your computer, you can execute the following command in a R console:
+The data used to reproduce this figure are provided with the package as an example file.
+Once the package is installed on your computer, and loaded in a R session, you can execute the following command:
 ```
 system.file("extdata", "Gibert_2014_data-PhD-thesis.tsv",
             package="UrbanTempo")
 ```
-which will return the path to the file.
+which will return the path to the example file.
 
 But, more easily, you can also download the example file, by clicking [here](https://raw.githubusercontent.com/marieflutre/UrbanTempo/master/inst/extdata/Gibert_2014_data-PhD-thesis.tsv).
 Do "right-click", then "Save as...".
 
-The resulting file is in "plain text" format, with columns separated by a tabulation.
-Such a file can be opened with virtually all softwares on all computers.
-A typical usage would be to open it with the Calc software from the [LibreOffice](https://www.libreoffice.org/) suite (free software), or with the Excel software from the Microsoft Office suite.
+The resulting file is in ["plain text"](https://en.wikipedia.org/wiki/Plain_text) format, with columns separated by a tabulation, hence the `.tsv` suffix of the example file, standing for ["tab-separated value"](https://en.wikipedia.org/wiki/Tab-separated_values).
+A typical usage would be to open such a file with the Calc software from the [LibreOffice](https://www.libreoffice.org/) suite (free software), or with the Excel software from the Microsoft Office suite.
+In order to smoothly handle various alphabets, the file should be saved in the [UTF-8](https://en.wikipedia.org/wiki/UTF-8) encoding.
+For this, it is advised to use LibreOffice, whatever the operating system.
 
 You can also download the example file specifying the appearances of the data (such as their colors), by clicking [here](https://raw.githubusercontent.com/marieflutre/UrbanTempo/master/inst/extdata/Gibert_2014_colors-PhD-thesis.tsv).
 
