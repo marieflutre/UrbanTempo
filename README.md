@@ -111,13 +111,13 @@ system.file("extdata", "Gibert_2014_data-PhD-thesis.tsv",
 ```
 which will return the path to the example file.
 
-But, more easily, you can also download the example file, by clicking [here](https://raw.githubusercontent.com/marieflutre/UrbanTempo/master/inst/extdata/Gibert_2014_data-PhD-thesis.tsv).
+But, **more easily**, you can download the example file, by clicking [here](https://raw.githubusercontent.com/marieflutre/UrbanTempo/master/inst/extdata/Gibert_2014_data-PhD-thesis.tsv).
 Do "right-click", then "Save as...".
 
 The resulting file is in ["plain text"](https://en.wikipedia.org/wiki/Plain_text) format, with columns separated by a tabulation, hence the `.tsv` suffix of the example file, standing for ["tab-separated value"](https://en.wikipedia.org/wiki/Tab-separated_values).
 A typical usage would be to open such a file with the Calc software from the [LibreOffice](https://www.libreoffice.org/) suite (free software), or with the Excel software from the Microsoft Office suite.
 In order to smoothly handle various alphabets, the file should be saved in the [UTF-8](https://en.wikipedia.org/wiki/UTF-8) encoding.
-For this, it is advised to use LibreOffice, whatever the operating system.
+For this, it is *strongly* advised to use LibreOffice Calc, whatever the operating system.
 
 You can also download the example file specifying the appearances of the data (such as their colors), by clicking [here](https://raw.githubusercontent.com/marieflutre/UrbanTempo/master/inst/extdata/Gibert_2014_colors-PhD-thesis.tsv).
 

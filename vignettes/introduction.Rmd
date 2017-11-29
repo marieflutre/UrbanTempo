@@ -65,7 +65,7 @@ This methodology, initiated in Ho Chi Minh City in Gibert's PhD thesis ([2014](h
 
 # Reproduce the figure from Gibert's PhD thesis (2014)
 
-Retrieve the data from a file which is part of the UrbanTempo package:
+Retrieve the data from the example file which is part of the UrbanTempo package (also downloadable [online](https://github.com/marieflutre/UrbanTempo#example-of-input-file)):
 ```{r}
 f1 <- system.file("extdata", "Gibert_2014_data-PhD-thesis.tsv",
                   package="UrbanTempo")
@@ -76,12 +76,7 @@ Load the data from this file (observations from 7am to 12pm):
 tpr <- readTemporalities(file=f1)
 ```
 
-Have a quick look at the data:
-```{r}
-lapply(tpr, function(x){unique(x$id)})
-```
-
-Retrieve the colors from a file which is also part of the UrbanTempo package:
+Retrieve the colors from the example file which is also part of the UrbanTempo package:
 ```{r}
 f2 <- system.file("extdata", "Gibert_2014_colors-PhD-thesis.tsv",
                   package="UrbanTempo")
@@ -92,16 +87,6 @@ Load the colors from this file:
 app <- readAppearances(file=f2)
 ```
 
-Choose the colors:
-```{r, eval=FALSE}
-app <- list(shops=data.frame(color=c("darkgrey", "orange", "darkorange1"),
-                             row.names=c("closed", "preparing", "opened")),
-            houses=data.frame(color=c("burlywood3", "darkgrey", "hotpink3"),
-                              row.names=c("stalls", "cleaning", "social")),
-            street=data.frame(color=c("darkmagenta", "darkslateblue", "orange", "cyan"),
-                              row.names=c("hawker", "collector", "delivery", "beggar")))
-```
-
 Make the plot:
 ```{r, fig.width=15, fig.height=5}
 plotTemporalities(temporalities=tpr, appearances=app,
@@ -109,11 +94,12 @@ plotTemporalities(temporalities=tpr, appearances=app,
                   data.source="M. Gibert, 08/08/2011")
 ```
 
-Save the plot and the legend together on a two-page PDF:
+Save the plot and the legend together on a two-page PDF file:
 ```{r, eval=FALSE}
 pdf(file="plot_temporalities.pdf", width=7, height=4,
     title="Urban temporalities")
-plotTemporalities(temporalities=tpr, appearances=app,
+plotTemporalities(temporalities=tpr,
+                  appearances=app,
                   main="Urban temporalities (alleyway 246 Xo Viet Nghe Tinh)",
                   data.source="M. Gibert, 08/08/2011")
 plotLegend(appearances=app)
