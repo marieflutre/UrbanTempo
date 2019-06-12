@@ -92,7 +92,7 @@ Other useful sources of information are listed below:
 
 # Citation
 
-The authors invested time and effort in creating the UrbanTempo package, please cite it when using it:
+A scientific article (to be published in an academic journal with peer-review) is currently in preparation. This package is made available in the mean time for pedagogical reasons. As the authors invested time and effort in creating this package, please cite it when using it:
 ```
 citation("UrbanTempo")
 ```
