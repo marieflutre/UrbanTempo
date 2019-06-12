@@ -57,7 +57,7 @@ readTemporalities <- function(file, duration.event=60, verbose=1){
     message(msg)
   }
   input <- utils::read.table(file=file, header=TRUE, sep="\t", comment.char="#",
-                             stringsAsFactors=FALSE)
+                             check.names=FALSE, stringsAsFactors=FALSE)
   stopifnot(ncol(input) >= 3,
             all(colnames(input)[1:2] == c("date", "time")))
 
@@ -199,7 +199,7 @@ readAppearances <- function(file, verbose=1){
     message(msg)
   }
   input <- utils::read.table(file=file, header=TRUE, sep="\t", comment.char="#",
-                             stringsAsFactors=FALSE)
+                             check.names=FALSE, stringsAsFactors=FALSE)
   stopifnot(ncol(input) >= 3,
             all(c("space", "event", "color") %in% colnames(input)))
 
