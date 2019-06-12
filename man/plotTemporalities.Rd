@@ -5,8 +5,8 @@
 \title{Plot urban temporalities}
 \usage{
 plotTemporalities(temporalities, appearances, main = "Urban temporalities",
-  data.source = "author, date", vertical.bars.per.hour = FALSE,
-  verbose = 1)
+  data.source = "author, date", vertical.bars.per.hour = FALSE, mar = c(2,
+  5, 5, 0.5), verbose = 1)
 }
 \arguments{
 \item{temporalities}{list of data frame(s) containing urban temporalities, as returned by \code{\link[=readTemporalities]{readTemporalities()}}}
@@ -18,6 +18,8 @@ plotTemporalities(temporalities, appearances, main = "Urban temporalities",
 \item{data.source}{source of the data, for instance \code{"M. Gibert, 2013"} (skipped if NULL)}
 
 \item{vertical.bars.per.hour}{if TRUE, a vertical bar is added for each hour}
+
+\item{mar}{see \code{\link[graphics]{par}}}
 
 \item{verbose}{verbosity level (0/1)}
 }

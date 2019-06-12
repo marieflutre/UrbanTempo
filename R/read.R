@@ -1,4 +1,4 @@
-## Copyright 2017 Timothée Flutre, Université Paris-Diderot
+## Copyright 2017,2019 Timothée Flutre, Université Paris-Diderot
 ##
 ## This file is part of UrbanTempo.
 ##
@@ -62,11 +62,13 @@ readTemporalities <- function(file, duration.event=60, verbose=1){
             all(colnames(input)[1:2] == c("date", "time")))
 
   if(verbose > 0){
-    msg <- "sort it according to the 'time' column..."
+    msg <- "sort it according to the 'time' column (ignoring 'date')..."
     message(msg)
   }
+  input$time2 <- as.POSIXlt(input$time, format="%H:%M")
+  input <- input[order(input$time2),]
+  input$time2 <- NULL
   input$datetime <- as.POSIXlt(paste(input$date, input$time))
-  input <- input[order(input$time),]
 
   if(verbose > 0){
     msg <- "reformat each column corresponding to a space type..."

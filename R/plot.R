@@ -1,4 +1,4 @@
-## Copyright 2017 Timothée Flutre, Université Paris-Diderot
+## Copyright 2017,2019 Timothée Flutre, Université Paris-Diderot
 ##
 ## This file is part of UrbanTempo.
 ##
@@ -24,6 +24,7 @@
 ##' @param main main title
 ##' @param data.source source of the data, for instance `"M. Gibert, 2013"` (skipped if NULL)
 ##' @param vertical.bars.per.hour if TRUE, a vertical bar is added for each hour
+##' @param mar see \code{\link[graphics]{par}}
 ##' @param verbose verbosity level (0/1)
 ##' @seealso [plotLegend()]
 ##' @author Timothee Flutre
@@ -32,6 +33,7 @@ plotTemporalities <- function(temporalities, appearances,
                               main="Urban temporalities",
                               data.source="author, date",
                               vertical.bars.per.hour=FALSE,
+                              mar=c(2, 5, 5, 0.5),
                               verbose=1){
   stopifnot(is.list(temporalities),
             all(sapply(temporalities, is.data.frame)),
@@ -105,7 +107,9 @@ plotTemporalities <- function(temporalities, appearances,
     msg <- "draw plot structure..."
     message(msg)
   }
-  def.par <- graphics::par(mar=c(2, 5, 5, 0.5), bty="n")
+  if(is.null(mar))
+    mar <- c(2, 5, 5, 0.5)
+  def.par <- graphics::par(bty="n", mar=mar)
 
   ## draw plot limits
   uniq.hours <- unique(do.call(c, lapply(temporalities, function(x){
